@@ -1,0 +1,44 @@
+﻿@model Multas.Models.Agentes
+
+@{
+    ViewBag.Title = "Detalhes do Agente";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Agentes</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Esquadra)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Esquadra)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Fotografia)
+        </dt>
+
+        <dd>
+            @*Na variavel model, vai ser atribuido o resultado da primeira linha (@model Multas.Models.Agentes)*@
+            <img src="~/imagens/@Model.Fotografia" height="150" />
+            @*@Html.DisplayFor(model => model.Fotografia)*@
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Voltar à lista", "Index")
+</p>

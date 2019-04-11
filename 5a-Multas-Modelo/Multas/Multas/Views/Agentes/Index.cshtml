@@ -1,0 +1,54 @@
+﻿@model IEnumerable<Multas.Models.Agentes>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Criar novo agente", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @*displayName faz label, "for" será a label associada a um elemento da base de dados. neste caso, o nome
+              está a mostrar os dados, ou legenda, o nome do atributo Nome*@
+            @Html.DisplayNameFor(model => model.Nome)
+        </th>
+        <th>
+            @*está a mostrar os dados, ou legenda, o nome do atributo Esquadra*@
+            @Html.DisplayNameFor(model => model.Esquadra)
+        </th>
+        <th>
+            @*está a mostrar os dados, ou legenda, o nome do atributo Fotografia*@
+            @Html.DisplayNameFor(model => model.Fotografia)
+        </th>
+        <th></th>
+    </tr>
+    @* a variavel item é um objeto do tipo "Agentes", um objeto da listagem*@
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nome)
+        </td>
+        <td>
+            @*// ver o valor da esquadra. Já sem "Name"*@
+            @Html.DisplayFor(modelItem => item.Esquadra)
+        </td>
+        <td>
+            @*@Html.DisplayFor(modelItem => item.Fotografia)*@
+
+            @*quero mostrar a imagem do Agente *@
+            <img src="~/imagens/@item.Nome" />
+        </td>
+        <td>
+            @*new { id=item.ID } -> add ao comando "Editar", q vai buscar o método "Edit" cujo Agente que vai ser editado é o "id" que corresponde ao ID do Agente*@
+            @Html.ActionLink("Editar", "Edit", new { id = item.ID }) |
+            @Html.ActionLink("Detalhes", "Details", new { id = item.ID }) |
+            @Html.ActionLink("Apagar", "Delete", new { id = item.ID })
+        </td>
+    </tr>
+}
+
+</table>
