@@ -11,10 +11,13 @@ namespace Multas.Models {
 
         public int ID { get; set; }
 
-        [Required]
+        [Required(ErrorMessage ="Por favor, escreva o Nome do Agente.")]
+        [RegularExpression("[A-ZÍÉÂÁ][a-záéíóúàèìòùâêîôûäëïöüãõç]+(( |'|-| dos | da | de | e | d')[A-ZÍÉÂÁ][a-záéíóúàèìòùâêîôûäëïöüãõç]+){1,3}",
+           ErrorMessage = "O {0} apenas pode conter letras e espaços em branco. Cada palavra começa por uma maiúscula, seguida de minúsculas...")]
         public string Nome { get; set; }
 
-        [Required]
+        [Required(ErrorMessage ="Não se esqueça de indicar a Esquadra onde o agente trabalha, por favor.")]
+        [RegularExpression("(Tomar|Ourém|Torres Novas|Lisboa|Leiria)")]
         public string Esquadra { get; set; }
 
         public string Fotografia { get; set; }

@@ -12,12 +12,21 @@ namespace Multas.Controllers
 {
     public class AgentesController : Controller
     {
+        // cria uma variável que representa a BD
         private MultasDB db = new MultasDB();
 
         // GET: Agentes
         public ActionResult Index()
         {
-            return View(db.Agentes.ToList());
+            // lista dos Agentes que aparecem na View
+            //return View(db.Agentes.ToList());
+
+            //procursa a totalidade dos Agentes na BD
+            //Instrução feita em LINQ
+            // SELECT * FROM Agentes ORDER BY Nome
+            var listaAgentes = db.Agentes.OrderBy( a => a.Nome).ToList();
+
+            return View(listaAgentes);
         }
 
         // GET: Agentes/Details/5
@@ -27,6 +36,7 @@ namespace Multas.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            // SELECT * FROM Agentes WHERE Id=id
             Agentes agentes = db.Agentes.Find(id);
             if (agentes == null)
             {
@@ -45,17 +55,18 @@ namespace Multas.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        // anotação especial para proteger o codigo de ataques
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Nome,Esquadra,Fotografia")] Agentes agentes)
+        public ActionResult Create([Bind(Include = "ID,Nome,Esquadra,Fotografia")] Agentes agente)
         {
             if (ModelState.IsValid)
             {
-                db.Agentes.Add(agentes);
+                db.Agentes.Add(agente);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(agentes);
+            return View(agente);
         }
 
         // GET: Agentes/Edit/5
